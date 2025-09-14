@@ -1,0 +1,10 @@
+<resources>
+    <string name="back_button">Back Button</string>
+    <string name="connect">Connect</string>
+    <string name="export">Export</string>
+    <string name="get_data_error">Get data error.</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="export_error">Export error.</string>
+    <string name="export_success">Export success.</string>
+    <string name="kmc_data">KMC Data</string>
+</resources>
