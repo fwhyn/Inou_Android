@@ -7,7 +7,7 @@ plugins {
 
 android {
     defaultConfig {
-        testInstrumentationRunner = "com.telehealth.app.ekmc.MyTestRunner"
+        testInstrumentationRunner = "com.fwhyn.app.inou.MyTestRunner"
     }
 
     buildTypes {

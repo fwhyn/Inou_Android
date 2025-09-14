@@ -13,7 +13,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = "E-KMC"
+rootProject.name = "Inou"
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")

@@ -11,12 +11,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.EKMC"
+        android:theme="@style/Theme.Inou"
         tools:targetApi="31">
         <activity
-            android:name="com.telehealth.app.ekmc.main.MainActivity"
+            android:name="com.fwhyn.app.inou.main.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.EKMC">
+            android:theme="@style/Theme.Inou">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

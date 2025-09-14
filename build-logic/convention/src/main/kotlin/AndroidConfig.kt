@@ -13,7 +13,7 @@ object AndroidConfig {
     object App {
 
         // TODO make user package, applicationId, package are the same
-        const val APP_ID = "com.telehealth.app.ekmc"
+        const val APP_ID = "com.fwhyn.app.inou"
         const val VER_CODE = 1000000
         const val VER_NAME = "1.0.0"
     }

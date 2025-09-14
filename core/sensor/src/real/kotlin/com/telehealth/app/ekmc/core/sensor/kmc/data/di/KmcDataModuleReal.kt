@@ -1,7 +1,7 @@
-package com.telehealth.app.ekmc.feature.func.sensor.kmc.data.di
+package com.fwhyn.app.inou.feature.func.sensor.kmc.data.di
 
-import com.telehealth.app.ekmc.feature.func.sensor.kmc.data.repository.KmcDataRepository
-import com.telehealth.app.ekmc.feature.func.sensor.kmc.data.repository.KmcDataRepositoryReal
+import com.fwhyn.app.inou.feature.func.sensor.kmc.data.repository.KmcDataRepository
+import com.fwhyn.app.inou.feature.func.sensor.kmc.data.repository.KmcDataRepositoryReal
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
