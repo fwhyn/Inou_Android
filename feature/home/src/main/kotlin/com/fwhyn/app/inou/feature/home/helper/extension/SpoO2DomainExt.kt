@@ -1,6 +1,6 @@
 package com.fwhyn.app.inou.feature.home.helper.extension
 
-import com.fwhyn.app.inou.core.calc.kmc.domain.model.SpoO2Domain
+import com.fwhyn.app.inou.core.calc.trx.domain.model.SpoO2Domain
 import com.fwhyn.app.inou.feature.home.model.SpoO2Ui
 
 fun SpoO2Domain.toUi(): SpoO2Ui {

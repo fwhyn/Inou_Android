@@ -1,6 +1,6 @@
 package com.fwhyn.app.inou.feature.home.helper.extension
 
-import com.fwhyn.app.inou.core.calc.kmc.domain.model.KmcDomain
+import com.fwhyn.app.inou.core.calc.trx.domain.model.KmcDomain
 import com.fwhyn.app.inou.core.common.ui.helper.UiUtil
 import com.fwhyn.app.inou.feature.home.model.KmcUi
 import kotlinx.coroutines.flow.Flow

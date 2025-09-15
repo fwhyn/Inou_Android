@@ -6,5 +6,4 @@
     <string name="disconnect">Disconnect</string>
     <string name="export_error">Export error.</string>
     <string name="export_success">Export success.</string>
-    <string name="kmc_data">KMC Data</string>
 </resources>

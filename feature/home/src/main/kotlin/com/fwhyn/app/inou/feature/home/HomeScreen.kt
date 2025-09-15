@@ -25,7 +25,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.fwhyn.app.inou.core.calc.kmc.domain.helper.ExportExcelUtil
+import com.fwhyn.app.inou.core.calc.trx.domain.helper.ExportExcelUtil
 import com.fwhyn.app.inou.core.common.R
 import com.fwhyn.app.inou.core.common.storage.saf.getFileCreatorLauncher
 import com.fwhyn.app.inou.core.common.ui.component.MySpacer
@@ -168,22 +168,11 @@ fun PortraitHomeView(
         Box(
             modifier = modifier.weight(1f)
         ) {
-//        LogoutButton(
-//            modifier = Modifier.align(Alignment.TopEnd),
-//            onClick = onLogout,
-//        )
-
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(8.dp),
             ) {
-
-                Text(
-                    text = stringResource(R.string.kmc_data)
-                )
-
-                MySpacer(4.dp)
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()

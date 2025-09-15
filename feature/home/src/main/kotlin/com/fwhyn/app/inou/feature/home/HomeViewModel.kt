@@ -4,10 +4,10 @@ import android.content.Intent
 import android.net.Uri
 import androidx.activity.result.ActivityResult
 import androidx.lifecycle.viewModelScope
-import com.fwhyn.app.inou.core.calc.kmc.domain.model.ExportKmcListParam
-import com.fwhyn.app.inou.core.calc.kmc.domain.model.GetKmcDomainParam
-import com.fwhyn.app.inou.core.calc.kmc.domain.usecase.ExportKmcListUseCase
-import com.fwhyn.app.inou.core.calc.kmc.domain.usecase.GetKmcListUseCase
+import com.fwhyn.app.inou.core.calc.trx.domain.model.ExportKmcListParam
+import com.fwhyn.app.inou.core.calc.trx.domain.model.GetKmcDomainParam
+import com.fwhyn.app.inou.core.calc.trx.domain.usecase.ExportKmcListUseCase
+import com.fwhyn.app.inou.core.calc.trx.domain.usecase.GetKmcListUseCase
 import com.fwhyn.app.inou.core.common.helper.emitEvent
 import com.fwhyn.app.inou.core.common.storage.saf.SafUtil
 import com.fwhyn.app.inou.core.common.ui.helper.showLoadingDialog
