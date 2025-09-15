@@ -1,7 +1,7 @@
 package com.fwhyn.app.inou.feature.home.helper.extension
 
+import com.fwhyn.app.inou.core.calc.kmc.domain.model.KmcDomain
 import com.fwhyn.app.inou.core.common.ui.helper.UiUtil
-import com.fwhyn.app.inou.core.sensor.kmc.domain.model.KmcDomain
 import com.fwhyn.app.inou.feature.home.model.KmcUi
 
 fun KmcUi.toDomain(): KmcDomain {

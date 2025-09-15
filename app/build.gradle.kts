@@ -41,7 +41,7 @@ dependencies {
     // Main Dependencies
     implementation(projects.feature.home)
     implementation(projects.core.common)
-    implementation(projects.core.sensor)
+    implementation(projects.core.calc)
 
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.io.github.fwhyn.lib.baze)
