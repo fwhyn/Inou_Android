@@ -187,7 +187,7 @@ fun PortraitHomeView(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(500.dp)
+                        .weight(1f)
                         .background(color = MaterialTheme.colorScheme.tertiary, shape = RoundedCornerShape(8.dp))
                         .clip(RoundedCornerShape(8.dp)),
                 ) {
