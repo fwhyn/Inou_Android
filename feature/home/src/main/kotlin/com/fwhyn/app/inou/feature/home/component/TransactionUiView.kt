@@ -1,5 +1,6 @@
 package com.fwhyn.app.inou.feature.home.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,9 +25,11 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.fwhyn.app.inou.core.common.ui.config.MyTheme
+import com.fwhyn.app.inou.feature.home.R
 import com.fwhyn.app.inou.feature.home.model.TransactionUi
 import com.fwhyn.app.inou.feature.home.model.transactionUiFake
 import com.fwhyn.lib.baze.compose.component.MySpacer
@@ -61,7 +64,7 @@ fun TransactionUiView(
                     }
                 )
             ) {
-                Column(
+                Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .shadow(elevation = 8.dp, shape = RoundedCornerShape(8.dp))
@@ -69,21 +72,28 @@ fun TransactionUiView(
                         .clip(RoundedCornerShape(8.dp))
                         .padding(6.dp),
                 ) {
-                    Text(
-                        text = param.transactionUi.timeStamp,
-                        color = MaterialTheme.colorScheme.secondary,
+                    Image(
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                            .padding(4.dp),
+                        imageVector = param.transactionUi.trxTypeUi.icon,
+                        contentDescription = stringResource(R.string.transaction_icon),
                     )
 
-                    MySpacer(6.dp)
-                    Text(
-                        text = "SpO2: ${param.transactionUi.spoO2.data}${param.transactionUi.spoO2.unit}",
-                    )
-                    Text(
-                        text = "Temperature: ${param.transactionUi.temperature.data}${param.transactionUi.temperature.unit}",
-                    )
-                    Text(
-                        text = "Respiration Rate: ${param.transactionUi.respirationRate.data}${param.transactionUi.respirationRate.unit}",
-                    )
+                    Column {
+                        Text(
+                            text = param.transactionUi.timeStamp,
+                            color = MaterialTheme.colorScheme.secondary,
+                        )
+
+                        MySpacer(6.dp)
+                        Text(
+                            text = "SpO2: ${param.transactionUi.amount}",
+                        )
+                        Text(
+                            text = "Note: ${param.transactionUi.note}}",
+                        )
+                    }
                 }
 
                 if (param.nodeType != TimelineView.NodeType.LAST) {

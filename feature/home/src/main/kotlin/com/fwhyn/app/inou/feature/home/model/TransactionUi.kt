@@ -1,56 +1,57 @@
 package com.fwhyn.app.inou.feature.home.model
 
 data class TransactionUi(
+    val trxTypeUi: TrxTypeUi,
     val timeStamp: String,
-    val spoO2: SpoO2Ui,
-    val temperature: TemperatureUi,
-    val respirationRate: RespirationRateUi,
+    val amount: Double,
+    val note: String,
 ) {
     companion object {
         fun default(
+            trxTypeUi: TrxTypeUi = TrxTypeUi.Income,
             timeStamp: String = "1967-01-01 12:00:00",
-            spoO2Ui: SpoO2Ui = SpoO2Ui.Companion.default(),
-            temperatureUi: TemperatureUi = TemperatureUi.Companion.default(),
-            respirationRateUi: RespirationRateUi = RespirationRateUi.Companion.default(),
+            amount: Double = 0.0,
+            note: String = "-",
         ) = TransactionUi(
+            trxTypeUi = trxTypeUi,
             timeStamp = timeStamp,
-            spoO2 = spoO2Ui,
-            temperature = temperatureUi,
-            respirationRate = respirationRateUi,
+            amount = amount,
+            note = note,
         )
     }
 }
 
 val transactionUiFake = TransactionUi(
+    trxTypeUi = TrxTypeUi.Income,
     timeStamp = "2023-10-01 12:00:00",
-    spoO2 = SpoO2Ui.Companion.default(data = 98),
-    temperature = TemperatureUi.Companion.default(data = 36.5f),
-    respirationRate = RespirationRateUi.Companion.default(data = 16)
+    amount = 150.0,
+    note = "Salary",
 )
 
 val transactionUiListFake = listOf(
+    transactionUiFake,
     TransactionUi(
-        timeStamp = "2023-10-01 12:00:00",
-        spoO2 = SpoO2Ui.Companion.default(data = 98),
-        temperature = TemperatureUi.Companion.default(data = 36.5f),
-        respirationRate = RespirationRateUi.Companion.default(data = 16)
+        trxTypeUi = TrxTypeUi.Outcome,
+        timeStamp = "2023-10-02 15:30:00",
+        amount = 50.0,
+        note = "Groceries",
     ),
     TransactionUi(
-        timeStamp = "2023-10-01 12:05:00",
-        spoO2 = SpoO2Ui.Companion.default(data = 97),
-        temperature = TemperatureUi.Companion.default(data = 36.6f),
-        respirationRate = RespirationRateUi.Companion.default(data = 18)
+        trxTypeUi = TrxTypeUi.Outcome,
+        timeStamp = "2023-10-03 09:00:00",
+        amount = 20.0,
+        note = "Transport",
     ),
     TransactionUi(
-        timeStamp = "2023-10-01 12:10:00",
-        spoO2 = SpoO2Ui.Companion.default(data = 95),
-        temperature = TemperatureUi.Companion.default(data = 36.7f),
-        respirationRate = RespirationRateUi.Companion.default(data = 20)
+        trxTypeUi = TrxTypeUi.Income,
+        timeStamp = "2023-10-04 18:45:00",
+        amount = 200.0,
+        note = "Freelance Work",
     ),
     TransactionUi(
-        timeStamp = "2023-10-01 12:15:00",
-        spoO2 = SpoO2Ui.Companion.default(data = 96),
-        temperature = TemperatureUi.Companion.default(data = 36.8f),
-        respirationRate = RespirationRateUi.Companion.default(data = 19)
+        trxTypeUi = TrxTypeUi.Outcome,
+        timeStamp = "2023-10-05 20:15:00",
+        amount = 80.0,
+        note = "Dining Out",
     ),
 )
