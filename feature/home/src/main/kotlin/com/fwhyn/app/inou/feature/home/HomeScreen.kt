@@ -57,7 +57,7 @@ const val HOME_ROUTE = "HOME_ROUTE"
 fun NavGraphBuilder.addHomeScreen(
     activityState: ActivityState,
 ) {
-    composable(HOME_ROUTE) {
+    composable(route = HOME_ROUTE) {
         HomeScreen(
             modifier = Modifier.fillMaxSize(),
             activityState = activityState,
