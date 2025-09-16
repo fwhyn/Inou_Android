@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
 data class HomeProperties(
     val event: SharedFlow<HomeEvent>,
     val isRealTimeData: StateFlow<Boolean>,
-    val kmcUiList: StateFlow<List<KmcUi>>,
+    val transactionUiList: StateFlow<List<TransactionUi>>,
 ) {
     companion object {
         val started by lazy { WhileSubscribed(5000) }
@@ -17,17 +17,17 @@ data class HomeProperties(
         fun default(
             event: SharedFlow<HomeEvent> = MutableSharedFlow(),
             isRealTimeData: StateFlow<Boolean> = MutableStateFlow(false),
-            kmcUiList: StateFlow<List<KmcUi>> = MutableStateFlow(emptyList()),
+            transactionUiList: StateFlow<List<TransactionUi>> = MutableStateFlow(emptyList()),
         ): HomeProperties {
             return HomeProperties(
                 event = event,
                 isRealTimeData = isRealTimeData,
-                kmcUiList = kmcUiList
+                transactionUiList = transactionUiList
             )
         }
     }
 }
 
 val homePropertiesFake = HomeProperties.default(
-    kmcUiList = MutableStateFlow(kmcUiListFake)
+    transactionUiList = MutableStateFlow(transactionUiListFake)
 )

@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -16,17 +15,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.fwhyn.app.inou.core.common.ui.config.MyTheme
-import com.fwhyn.app.inou.feature.home.model.KmcUi
 import com.fwhyn.app.inou.feature.home.model.RespirationRateUi
 import com.fwhyn.app.inou.feature.home.model.SpoO2Ui
 import com.fwhyn.app.inou.feature.home.model.TemperatureUi
-import com.fwhyn.app.inou.feature.home.model.kmcUiListFake
+import com.fwhyn.app.inou.feature.home.model.TransactionUi
+import com.fwhyn.app.inou.feature.home.model.transactionUiListFake
 import com.yeocak.timelineview.TimelineView
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 @Composable
-fun DataStreamView(
+fun TransactionUiListView(
     modifier: Modifier,
     param: DataStreamViewParam,
 ) {
@@ -36,23 +35,21 @@ fun DataStreamView(
         LazyColumn(
             modifier = Modifier.fillMaxSize()
         ) {
-            itemsIndexed(param.kmcUiList) { index, kmcUi ->
+            itemsIndexed(param.transactionUiList) { index, uiData ->
                 val nodeType = when (index) {
                     0 -> TimelineView.NodeType.FIRST
-                    param.kmcUiList.lastIndex -> TimelineView.NodeType.LAST
+                    param.transactionUiList.lastIndex -> TimelineView.NodeType.LAST
                     else -> TimelineView.NodeType.MIDDLE
                 }
 
-                val kmcUiViewParam = KmcUiViewParam(
+                val transactionUiViewParam = TransactionUiViewParam(
                     nodeType = nodeType,
-                    kmcUi = kmcUi,
+                    transactionUi = uiData,
                 )
 
-                KmcUiView(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(defaultKmcUiViewHeight),
-                    param = kmcUiViewParam,
+                TransactionUiView(
+                    modifier = Modifier.fillMaxWidth(),
+                    param = transactionUiViewParam,
                 )
             }
         }
@@ -60,30 +57,30 @@ fun DataStreamView(
 }
 
 data class DataStreamViewParam(
-    val kmcUiList: List<KmcUi>,
+    val transactionUiList: List<TransactionUi>,
 ) {
     companion object {
         fun default(
-            kmcUiList: List<KmcUi> = listOf(
-                KmcUi.default(
+            transactionUiLists: List<TransactionUi> = listOf(
+                TransactionUi.default(
                     spoO2Ui = SpoO2Ui.default(),
                     temperatureUi = TemperatureUi.default(),
                     respirationRateUi = RespirationRateUi.default()
                 )
             ),
-        ) = DataStreamViewParam(kmcUiList = kmcUiList)
+        ) = DataStreamViewParam(transactionUiList = transactionUiLists)
     }
 }
 
 @Composable
 fun getStateOfDataStreamViewParam(
-    kmcUiListFlow: StateFlow<List<KmcUi>>,
+    transactionUiListFlow: StateFlow<List<TransactionUi>>,
 ): DataStreamViewParam {
 
-    val kmcList: List<KmcUi> by kmcUiListFlow.collectAsStateWithLifecycle()
+    val kmcList: List<TransactionUi> by transactionUiListFlow.collectAsStateWithLifecycle()
 
     return DataStreamViewParam(
-        kmcUiList = kmcList
+        transactionUiList = kmcList
     )
 }
 
@@ -91,11 +88,11 @@ fun getStateOfDataStreamViewParam(
 @Preview
 fun DataStreamViewPreview() {
     val param = getStateOfDataStreamViewParam(
-        kmcUiListFlow = MutableStateFlow(kmcUiListFake)
+        transactionUiListFlow = MutableStateFlow(transactionUiListFake)
     )
 
     MyTheme {
-        DataStreamView(
+        TransactionUiListView(
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.tertiary)
                 .fillMaxSize()

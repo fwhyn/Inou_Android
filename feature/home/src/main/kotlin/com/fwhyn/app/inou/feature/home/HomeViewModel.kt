@@ -17,7 +17,7 @@ import com.fwhyn.app.inou.feature.home.helper.extension.toDomain
 import com.fwhyn.app.inou.feature.home.helper.extension.toUi
 import com.fwhyn.app.inou.feature.home.model.HomeEvent
 import com.fwhyn.app.inou.feature.home.model.HomeProperties
-import com.fwhyn.app.inou.feature.home.model.KmcUi
+import com.fwhyn.app.inou.feature.home.model.TransactionUi
 import com.fwhyn.lib.baze.compose.model.CommonProperties
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -36,7 +36,7 @@ class HomeViewModel @Inject constructor(
 
     private val event: MutableSharedFlow<HomeEvent> = MutableSharedFlow()
     private val isRealTimeData: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    private val kmcUiList: MutableStateFlow<List<KmcUi>> = MutableStateFlow(emptyList())
+    private val transactionUiList: MutableStateFlow<List<TransactionUi>> = MutableStateFlow(emptyList())
 
     // ----------------------------------------------------------------
     override val commonProp: CommonProperties = CommonProperties()
@@ -44,7 +44,7 @@ class HomeViewModel @Inject constructor(
     override val properties: HomeProperties = HomeProperties(
         event = event,
         isRealTimeData = isRealTimeData,
-        kmcUiList = kmcUiList
+        transactionUiList = transactionUiList
     )
 
     // ----------------------------------------------------------------
@@ -59,7 +59,7 @@ class HomeViewModel @Inject constructor(
     }
 
     override fun onExportData() {
-        event.emitEvent(scope, HomeEvent.OpenSaf(OpenSafCode.ExportKmcList))
+        event.emitEvent(scope, HomeEvent.OpenSaf(OpenSafCode.ExportTransactions))
     }
 
     override fun onCreateFileResult(result: ActivityResult) {
@@ -77,7 +77,7 @@ class HomeViewModel @Inject constructor(
             onFetchParam = { param },
             onOmitResult = { res ->
                 res.onSuccess { kmcListDomain ->
-                    kmcUiList.value = kmcListDomain.toUi()
+                    transactionUiList.value = kmcListDomain.toUi()
                 }.onFailure {
                     event.emit(HomeEvent.Notify(HomeMessageCode.GetKmcListError))
                 }
@@ -101,7 +101,7 @@ class HomeViewModel @Inject constructor(
                 scope = scope,
                 onStart = { commonProp.showLoadingDialog(tag) },
                 onFetchParam = {
-                    val kmcList = properties.kmcUiList.value
+                    val kmcList = properties.transactionUiList.value
                     ExportKmcListParam(kmcList.toDomain(), uri)
                 },
                 onOmitResult = { res ->

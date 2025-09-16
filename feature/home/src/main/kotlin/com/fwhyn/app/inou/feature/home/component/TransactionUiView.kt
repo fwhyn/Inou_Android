@@ -13,32 +13,37 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.fwhyn.app.inou.core.common.ui.component.MySpacer
 import com.fwhyn.app.inou.core.common.ui.config.MyTheme
-import com.fwhyn.app.inou.feature.home.model.KmcUi
-import com.fwhyn.app.inou.feature.home.model.RespirationRateUi
-import com.fwhyn.app.inou.feature.home.model.SpoO2Ui
-import com.fwhyn.app.inou.feature.home.model.TemperatureUi
+import com.fwhyn.app.inou.feature.home.model.TransactionUi
+import com.fwhyn.app.inou.feature.home.model.transactionUiFake
+import com.fwhyn.lib.baze.compose.component.MySpacer
 import com.yeocak.timelineview.TimelineView
 
 @Composable
-fun KmcUiView(
+fun TransactionUiView(
     modifier: Modifier,
-    param: KmcUiViewParam,
+    param: TransactionUiViewParam,
 ) {
     Column(
         modifier = modifier,
     ) {
+        var nodeModifier by remember { mutableStateOf(Modifier.height(0.dp)) }
         Row {
             TimelineView.SingleNode(
-                modifier = Modifier.padding(horizontal = 2.dp),
+                modifier = nodeModifier,
                 color = MaterialTheme.colorScheme.primary,
                 nodeType = param.nodeType,
                 nodeSize = 30f,
@@ -47,7 +52,15 @@ fun KmcUiView(
             )
 
             MySpacer(8.dp)
-            Column {
+            val localDensity = (LocalDensity.current)
+            Column(
+                modifier = Modifier.onGloballyPositioned(
+                    onGloballyPositioned = { coordinates ->
+                        val itemHeight = with(localDensity) { coordinates.size.height.toDp() }
+                        nodeModifier = Modifier.height(itemHeight)
+                    }
+                )
+            ) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -57,43 +70,42 @@ fun KmcUiView(
                         .padding(6.dp),
                 ) {
                     Text(
-                        text = param.kmcUi.timeStamp,
+                        text = param.transactionUi.timeStamp,
                         color = MaterialTheme.colorScheme.secondary,
                     )
 
                     MySpacer(6.dp)
                     Text(
-                        text = "SpO2: ${param.kmcUi.spoO2.data}${param.kmcUi.spoO2.unit}",
+                        text = "SpO2: ${param.transactionUi.spoO2.data}${param.transactionUi.spoO2.unit}",
                     )
                     Text(
-                        text = "Temperature: ${param.kmcUi.temperature.data}${param.kmcUi.temperature.unit}",
+                        text = "Temperature: ${param.transactionUi.temperature.data}${param.transactionUi.temperature.unit}",
                     )
                     Text(
-                        text = "Respiration Rate: ${param.kmcUi.respirationRate.data}${param.kmcUi.respirationRate.unit}",
+                        text = "Respiration Rate: ${param.transactionUi.respirationRate.data}${param.transactionUi.respirationRate.unit}",
                     )
                 }
 
                 if (param.nodeType != TimelineView.NodeType.LAST) {
-                    MySpacer(3.dp)
+                    MySpacer(2.dp)
                     HorizontalDivider(thickness = 1.dp)
+                    MySpacer(2.dp)
                 }
             }
         }
     }
 }
 
-val defaultKmcUiViewHeight = 92.dp
-
-data class KmcUiViewParam(
-    val kmcUi: KmcUi,
+data class TransactionUiViewParam(
+    val transactionUi: TransactionUi,
     val nodeType: TimelineView.NodeType,
 ) {
     companion object {
         fun default(
-            kmcUi: KmcUi = KmcUi.default(),
+            transactionUi: TransactionUi = TransactionUi.default(),
             nodeType: TimelineView.NodeType = TimelineView.NodeType.MIDDLE,
-        ) = KmcUiViewParam(
-            kmcUi = kmcUi,
+        ) = TransactionUiViewParam(
+            transactionUi = transactionUi,
             nodeType = nodeType
         )
     }
@@ -101,7 +113,7 @@ data class KmcUiViewParam(
 
 @Preview
 @Composable
-fun KmcUiViewPreview() {
+fun TransactionUiPreview() {
     MyTheme {
         Column(
             modifier = Modifier
@@ -111,17 +123,10 @@ fun KmcUiViewPreview() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            KmcUiView(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(defaultKmcUiViewHeight),
-                param = KmcUiViewParam.default(
-                    kmcUi = KmcUi.default(
-                        timeStamp = "2023-10-01 12:00:00",
-                        spoO2Ui = SpoO2Ui.default(data = 98),
-                        temperatureUi = TemperatureUi.default(data = 36.5f),
-                        respirationRateUi = RespirationRateUi.default(data = 16)
-                    )
+            TransactionUiView(
+                modifier = Modifier.fillMaxWidth(),
+                param = TransactionUiViewParam.default(
+                    transactionUi = transactionUiFake
                 )
             )
         }
