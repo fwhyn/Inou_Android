@@ -19,7 +19,7 @@ dependencies {
     // ----------------------------------------------------------------
     // Main Dependencies
     implementation(projects.core.common)
-    implementation(projects.core.sensor)
+    implementation(projects.core.calc)
 
     implementation(libs.io.github.fwhyn.lib.baze)
 

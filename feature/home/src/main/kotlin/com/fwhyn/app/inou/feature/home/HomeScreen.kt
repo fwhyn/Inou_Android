@@ -25,28 +25,28 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import com.fwhyn.app.inou.core.calc.trx.domain.helper.ExportExcelUtil
 import com.fwhyn.app.inou.core.common.R
 import com.fwhyn.app.inou.core.common.storage.saf.getFileCreatorLauncher
-import com.fwhyn.app.inou.core.common.ui.component.MySpacer
 import com.fwhyn.app.inou.core.common.ui.component.TopBar
 import com.fwhyn.app.inou.core.common.ui.component.TopBarParam
 import com.fwhyn.app.inou.core.common.ui.component.getStateOfTopBarHomeParam
 import com.fwhyn.app.inou.core.common.ui.config.MyTheme
 import com.fwhyn.app.inou.core.common.ui.config.TopBarHeight
 import com.fwhyn.app.inou.core.common.ui.helper.CollectLoadingState
-import com.fwhyn.app.inou.core.sensor.kmc.domain.helper.ExportExcelUtil
 import com.fwhyn.app.inou.feature.home.component.ConnectDisconnectBtn
 import com.fwhyn.app.inou.feature.home.component.ConnectDisconnectBtnParam
-import com.fwhyn.app.inou.feature.home.component.DataStreamView
 import com.fwhyn.app.inou.feature.home.component.DataStreamViewParam
 import com.fwhyn.app.inou.feature.home.component.HomeStringManager
-import com.fwhyn.app.inou.feature.home.component.HomeStringManagerImpl
+import com.fwhyn.app.inou.feature.home.component.HomeStringManagerMain
+import com.fwhyn.app.inou.feature.home.component.TransactionUiListView
 import com.fwhyn.app.inou.feature.home.component.getStateOfConnectDisconnectBtnParam
 import com.fwhyn.app.inou.feature.home.component.getStateOfDataStreamViewParam
 import com.fwhyn.app.inou.feature.home.helper.OpenSafCode
 import com.fwhyn.app.inou.feature.home.model.HomeEvent
 import com.fwhyn.app.inou.feature.home.model.HomeProperties
 import com.fwhyn.app.inou.feature.home.model.homePropertiesFake
+import com.fwhyn.lib.baze.compose.component.MySpacer
 import com.fwhyn.lib.baze.compose.helper.ActivityState
 import com.fwhyn.lib.baze.compose.helper.DevicePreviews
 import com.fwhyn.lib.baze.compose.helper.rememberActivityState
@@ -57,11 +57,11 @@ const val HOME_ROUTE = "HOME_ROUTE"
 fun NavGraphBuilder.addHomeScreen(
     activityState: ActivityState,
 ) {
-    composable(HOME_ROUTE) {
+    composable(route = HOME_ROUTE) {
         HomeScreen(
             modifier = Modifier.fillMaxSize(),
             activityState = activityState,
-            stringManager = HomeStringManagerImpl(LocalContext.current),
+            stringManager = HomeStringManagerMain(LocalContext.current),
             vm = hiltViewModel<HomeViewModel>()
         )
     }
@@ -86,7 +86,7 @@ private fun HomeScreen(
             when (event) {
                 is HomeEvent.Notify -> activityState.notification.showSnackbar(stringManager.getString(event.code))
                 is HomeEvent.OpenSaf -> when (event.code) {
-                    OpenSafCode.ExportKmcList -> ExportExcelUtil.requestToCreateWorkBook(safFileCreator)
+                    OpenSafCode.ExportTransactions -> ExportExcelUtil.requestToCreateWorkBook(safFileCreator)
                 }
             }
         }
@@ -104,7 +104,7 @@ private fun HomeScreen(
     )
 
     val dataStreamViewParam = getStateOfDataStreamViewParam(
-        kmcUiListFlow = vm.properties.kmcUiList
+        transactionUiListFlow = vm.properties.transactionUiList
     )
 
     val connectDisconnectBtnParam = getStateOfConnectDisconnectBtnParam(
@@ -168,30 +168,19 @@ fun PortraitHomeView(
         Box(
             modifier = modifier.weight(1f)
         ) {
-//        LogoutButton(
-//            modifier = Modifier.align(Alignment.TopEnd),
-//            onClick = onLogout,
-//        )
-
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(8.dp),
             ) {
-
-                Text(
-                    text = stringResource(R.string.kmc_data)
-                )
-
-                MySpacer(4.dp)
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(500.dp)
+                        .weight(1f)
                         .background(color = MaterialTheme.colorScheme.tertiary, shape = RoundedCornerShape(8.dp))
                         .clip(RoundedCornerShape(8.dp)),
                 ) {
-                    DataStreamView(
+                    TransactionUiListView(
                         modifier = Modifier.padding(8.dp),
                         param = param.dataStreamViewParam
                     )
@@ -231,7 +220,7 @@ fun HomeScreenPreview() {
     MyTheme {
         HomeScreen(
             activityState = rememberActivityState(),
-            stringManager = HomeStringManagerImpl(LocalContext.current),
+            stringManager = HomeStringManagerMain(LocalContext.current),
             vm = object : HomeVmInterface() {
                 override val commonProp: CommonProperties
                     get() = CommonProperties()
