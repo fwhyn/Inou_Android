@@ -5,7 +5,7 @@ import android.net.Uri
 import androidx.activity.result.ActivityResult
 import androidx.lifecycle.viewModelScope
 import com.fwhyn.app.inou.core.calc.trx.domain.model.ExportKmcListParam
-import com.fwhyn.app.inou.core.calc.trx.domain.model.GetKmcDomainParam
+import com.fwhyn.app.inou.core.calc.trx.domain.model.GetTrxDomainParam
 import com.fwhyn.app.inou.core.calc.trx.domain.usecase.ExportKmcListUseCase
 import com.fwhyn.app.inou.core.calc.trx.domain.usecase.GetKmcListUseCase
 import com.fwhyn.app.inou.core.common.helper.emitEvent
@@ -49,13 +49,13 @@ class HomeViewModel @Inject constructor(
 
     // ----------------------------------------------------------------
     init {
-        getKmcUseCase(GetKmcDomainParam.default())
+        getKmcUseCase(GetTrxDomainParam.default())
     }
 
     // ----------------------------------------------------------------
     override fun onConnectOrDisconnect() {
         isRealTimeData.value = !isRealTimeData.value
-        getKmcUseCase(GetKmcDomainParam.default(isRealTime = isRealTimeData.value))
+        getKmcUseCase(GetTrxDomainParam.default(isRealTime = isRealTimeData.value))
     }
 
     override fun onExportData() {
@@ -70,7 +70,7 @@ class HomeViewModel @Inject constructor(
     }
 
     // ----------------------------------------------------------------
-    private fun getKmcUseCase(param: GetKmcDomainParam) {
+    private fun getKmcUseCase(param: GetTrxDomainParam) {
         getKmcListUseCase.setForcedCancelPreviousActiveJob(true)
         getKmcListUseCase.invoke(
             scope = scope,

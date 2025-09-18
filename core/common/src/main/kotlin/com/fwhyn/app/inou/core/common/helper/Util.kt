@@ -1,11 +1,11 @@
-package com.fwhyn.app.inou.core.common.ui.helper
+package com.fwhyn.app.inou.core.common.helper
 
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-object UiUtil {
+object Util {
 
     private val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
 

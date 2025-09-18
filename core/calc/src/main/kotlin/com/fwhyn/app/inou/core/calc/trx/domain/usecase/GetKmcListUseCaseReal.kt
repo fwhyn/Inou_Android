@@ -3,8 +3,8 @@ package com.fwhyn.app.inou.core.calc.trx.domain.usecase
 import com.fwhyn.app.inou.core.calc.trx.data.repository.KmcDataRepository
 import com.fwhyn.app.inou.core.calc.trx.domain.helper.toData
 import com.fwhyn.app.inou.core.calc.trx.domain.helper.toDomain
-import com.fwhyn.app.inou.core.calc.trx.domain.model.GetKmcDomainParam
-import com.fwhyn.app.inou.core.calc.trx.domain.model.KmcDomain
+import com.fwhyn.app.inou.core.calc.trx.domain.model.GetTrxDomainParam
+import com.fwhyn.app.inou.core.calc.trx.domain.model.TransactionDomain
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
@@ -12,11 +12,11 @@ class GetKmcListUseCaseReal @Inject constructor(
     private val kmcDataRepository: KmcDataRepository,
 ) : GetKmcListUseCase() {
 
-    private var kmcDomainList = listOf<KmcDomain>()
+    private var transactionDomainList = listOf<TransactionDomain>()
 
     override suspend fun onRunning(
-        param: GetKmcDomainParam,
-        result: suspend (List<KmcDomain>) -> Unit,
+        param: GetTrxDomainParam,
+        result: suspend (List<TransactionDomain>) -> Unit,
     ) {
         while (param.isRealTime) {
             result(getKmcDomainList(param))
@@ -28,9 +28,9 @@ class GetKmcListUseCaseReal @Inject constructor(
         result(getKmcDomainList(param))
     }
 
-    private suspend fun getKmcDomainList(param: GetKmcDomainParam): List<KmcDomain> {
+    private suspend fun getKmcDomainList(param: GetTrxDomainParam): List<TransactionDomain> {
         val kmcData = kmcDataRepository.get(param.toData()).toDomain()
-        val kmcList = ArrayList(kmcDomainList)
+        val kmcList = ArrayList(transactionDomainList)
 
         kmcList.add(0, kmcData)
 
@@ -38,7 +38,7 @@ class GetKmcListUseCaseReal @Inject constructor(
             kmcList.removeAt(kmcList.size - 1)
         }
 
-        kmcDomainList = kmcList
+        transactionDomainList = kmcList
 
         return kmcList
     }

@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.Uri
 import com.fwhyn.app.inou.core.calc.trx.domain.model.ExportKmcListParam
 import com.fwhyn.app.inou.core.calc.trx.domain.model.GenerateKmcListExcelParam
-import com.fwhyn.app.inou.core.calc.trx.domain.model.KmcDomain
+import com.fwhyn.app.inou.core.calc.trx.domain.model.TransactionDomain
 import com.fwhyn.app.inou.core.common.storage.saf.SafUtil
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
@@ -40,7 +40,7 @@ class ExportKmcListUseCaseReal @Inject constructor(
     }
 
     private suspend fun generateWorkbook(
-        kmcList: List<KmcDomain>,
+        kmcList: List<TransactionDomain>,
         result: suspend (XSSFWorkbook) -> Unit,
     ) {
         generateKmcListExcelUseCase.invoke(

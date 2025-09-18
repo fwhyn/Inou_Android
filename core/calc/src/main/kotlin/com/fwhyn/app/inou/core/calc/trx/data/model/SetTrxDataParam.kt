@@ -1,4 +1,4 @@
 package com.fwhyn.app.inou.core.calc.trx.data.model
 
-class KmccalcParam {
+class SetTrxDataParam {
 }

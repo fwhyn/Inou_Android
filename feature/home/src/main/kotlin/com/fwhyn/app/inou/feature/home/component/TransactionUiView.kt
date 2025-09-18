@@ -88,10 +88,10 @@ fun TransactionUiView(
 
                         MySpacer(6.dp)
                         Text(
-                            text = "SpO2: ${param.transactionUi.amount}",
+                            text = "Amount: ${param.transactionUi.amount}",
                         )
                         Text(
-                            text = "Note: ${param.transactionUi.note}}",
+                            text = "Note: ${param.transactionUi.note}",
                         )
                     }
                 }

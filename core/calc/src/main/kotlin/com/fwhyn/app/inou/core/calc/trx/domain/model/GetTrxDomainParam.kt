@@ -1,6 +1,6 @@
 package com.fwhyn.app.inou.core.calc.trx.domain.model
 
-data class GetKmcDomainParam(
+data class GetTrxDomainParam(
     val isRealTime: Boolean,
     val maxDataList: Int,
 ) {
@@ -9,8 +9,8 @@ data class GetKmcDomainParam(
         fun default(
             isRealTime: Boolean = false,
             maxDataList: Int = 100,
-        ): GetKmcDomainParam {
-            return GetKmcDomainParam(
+        ): GetTrxDomainParam {
+            return GetTrxDomainParam(
                 isRealTime = isRealTime,
                 maxDataList = maxDataList
             )

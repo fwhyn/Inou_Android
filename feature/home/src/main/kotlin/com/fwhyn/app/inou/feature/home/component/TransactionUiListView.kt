@@ -15,9 +15,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.fwhyn.app.inou.core.common.ui.config.MyTheme
-import com.fwhyn.app.inou.feature.home.model.RespirationRateUi
-import com.fwhyn.app.inou.feature.home.model.SpoO2Ui
-import com.fwhyn.app.inou.feature.home.model.TemperatureUi
 import com.fwhyn.app.inou.feature.home.model.TransactionUi
 import com.fwhyn.app.inou.feature.home.model.transactionUiListFake
 import com.yeocak.timelineview.TimelineView
@@ -62,12 +59,8 @@ data class DataStreamViewParam(
     companion object {
         fun default(
             transactionUiLists: List<TransactionUi> = listOf(
-                TransactionUi.default(
-                    spoO2Ui = SpoO2Ui.default(),
-                    temperatureUi = TemperatureUi.default(),
-                    respirationRateUi = RespirationRateUi.default()
-                )
-            ),
+                TransactionUi.default(),
+            )
         ) = DataStreamViewParam(transactionUiList = transactionUiLists)
     }
 }
